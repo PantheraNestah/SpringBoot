@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>jpaMvc</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style type="text/css">
+            label {
+                display: inline-block;
+                width: 200px;
+                margin: 5px;
+                text-align: left;
+                font-size: 16px;
+	        }
+	        input {
+	            display: inline-block;
+	            width: 150px;
+	            margin: 10px;
+	            text-align center;
+	            font-size: 16px;
+	        }
+	        .table-head,.table-data {
+	            display: flex;
+	            flex-direction: row;
+	            align-items: center;
+	        }
+	        .table-head span,
+            .table-data span {
+                width: 200px;
+                text-align: left;
+                line-height: 20px;
+                font-size: 18px;
+            }
+             .table-head span{
+                font-size: 20px;
+             }
+        </style>
+    </head>
+    <body>
+        <section>
+            <h4>Available Bloggers</h4>
+            <article class="table-head">
+                <span>ID</span>
+                <span>NAME</span>
+                <span>PROFESSION</span>
+                <span>CATEGORY</span>
+                <span>TOTAL ARTICLES</span>
+            </article>
+            <hr>
+            <article th:each="blogger : ${bloggersList}" class="table-data">
+                <span th:text="${blogger.id}"></span>
+                <span th:text="${blogger.name}"></span>
+                <span th:text="${blogger.profession}"></span>
+                <span th:text="${blogger.content_category}"></span>
+                <span th:text="${blogger.articles}"></span>
+            </article>
+        </section>
+        <section>
+            <h3 style="line-height:20px;">Register Blogger</h3>
+            <form action="#" th:action="@{/addBlogger}" th:object="${blog}" method="POST">
+                <label>Name</label><input th:field="*{name}" placeholder="Blogger Name"/><br>
+                <label>Profession</label><input th:field="*{profession}" placeholder="eg: engineer"/><br>
+                <label>Category</label>
+                <select th:field="*{content_category}" style="width:150px;">
+                    <option th:each="category : ${categoryList}" th:value="${category}" th:text="${category}"></option>
+                </select><br>
+                <label>Articles</label><input th:field="*{articles}">
+                <div style="margin:10px;text-align:center;">
+                    <input type="submit" value="Add Blogger"/>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>
