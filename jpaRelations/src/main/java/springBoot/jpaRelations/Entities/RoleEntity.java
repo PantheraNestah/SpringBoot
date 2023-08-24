@@ -15,21 +15,18 @@ public class RoleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int role_id;
-	@Column(length = 50, nullable = false)
-	private String role_name;
+	@Column(name = "role_name", length = 50, nullable = false)
+	private String name;
 
 	public RoleEntity(String name)
 	{
-		this.role_name = name;
+		this.name = name;
 	}
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn()
-	private UserEntity user;
 
 	@Override
 	public String toString()
 	{
-		String role = "\nRole:\n\tId:\t"+role_id+"\n\tName:\t"+role_name;
+		String role = "\nRole:\n\tId:\t"+role_id+"\n\tName:\t"+name;
 		return (role);
 	}
 

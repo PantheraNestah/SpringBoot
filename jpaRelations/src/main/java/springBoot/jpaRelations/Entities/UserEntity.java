@@ -23,16 +23,19 @@ public class UserEntity {
     @Column(length = 50, nullable = false)
     private String password;
 
-    public UserEntity(int id, String email, String name, String password)
+    public UserEntity(String email, String name, String password)
     {
-        this.user_id = id;
         this.user_name = name;
         this.email = email;
         this.password = password;
     }
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private RoleEntity role;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "users_category", joinColumns =  @JoinColumn(name = "user_id", referencedColumnName = "user_id"),inverseJoinColumns =@JoinColumn(name = "product_category", referencedColumnName = "id"))
+    private ProductsCategory category;
 
     @Override
     public String toString()
